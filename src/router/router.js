@@ -1,17 +1,18 @@
-import login from '../components/login/index'
-import welcome from '../components/login/index'
+import Login from '../components/login/index'
+import Welcome from '../components/login/index'
 
 
-let router = [
-    {
-        path: '/login',
-        exact: true,
-        component: login
-    },
+let routes = [
     {
         path: '/welcome',
-        component: welcome
-    }
+        // exact: true,
+        component: Welcome
+    },
+    {
+        path: '/login',
+        component: Login
+    },
+    
 ]
 
-export default router
+export default routes

@@ -1,52 +1,52 @@
 import React from 'react';
+// import routes from './router/router'
 // import logo from './logo.svg';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import routes from './router/router'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 
-// import Login from './components/login/index'
-// import Welcome from './components/welcome/index'
+import Login from './components/login/index'
+import Welcome from './components/welcome/index'
 
+let routes = [
+  {
+    path: '/login',
+    exact: true,
+    component: Login
+  },
+  {
+    path: '/welcome',
+    component: Welcome
+  }
+]
 class App extends React.Component{
   render (){
-    // debugger
     return (
-
-      // <Router>
-      //   <div>
-      //   <Link to="/welcome">欢迎</Link>
-      //   <Link to="/login">登录</Link>
-      //   <div>
-      //     {console.log(<Route path="/welcome" component={Welcome} />)}
-          
-      //     <Route path="/login" component={Login}/>
-      //   </div>
-      // </div>
-      // </Router>
-      
       <Router>
         <div>
+          <header>
+            <Link to="/welcome">欢迎</Link>
+            <Link to="/login">登录</Link>
+          </header>       
+          
               <div>
-                <Switch>
                 {
+
                   routes.map((item,index)=>{
-                  if(item.exact===true){
+                  if(item.exact){
                     return (
-                          <Route exact path={item.path} component={item.component} key={index} ></Route>
+                      <Route exact path={item.path} component={item.component} key={index} ></Route>
                     )
                   } else {
-                    return (<Route path={item.path} component={item.component} key={index} ></Route>)
+                    return (
+                      <Route path={item.path} component={item.component} key={index} ></Route>
+                    )
                   }
-                  console.log(item)
                 })
-                }
-                </Switch>
 
+                }
               </div>
-              
         </div>
-      </Router>        
-        
+      </Router>
     )
   }
 }
