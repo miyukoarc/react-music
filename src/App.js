@@ -1,53 +1,27 @@
 import React from 'react';
+import Home from './components/home'
 // import routes from './router/router'
 // import logo from './logo.svg';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import './App.css';
+// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+// import './App.css';
 
-import Login from './components/login/index'
-import Welcome from './components/welcome/index'
+// import Login from './components/login/index'
+// import Welcome from './components/welcome/index'
 
-let routes = [
-  {
-    path: '/login',
-    exact: true,
-    component: Login
-  },
-  {
-    path: '/welcome',
-    component: Welcome
-  }
-]
+// let routes = [
+//   {
+//     path: '/login',
+//     exact: true,
+//     component: Login
+//   },
+//   {
+//     path: '/welcome',
+//     component: Welcome
+//   }
+// ]
 class App extends React.Component{
   render (){
-    return (
-      <Router>
-        <div>
-          <header>
-            <Link to="/welcome">欢迎</Link>
-            <Link to="/login">登录</Link>
-          </header>       
-          
-              <div>
-                {
-
-                  routes.map((item,index)=>{
-                  if(item.exact){
-                    return (
-                      <Route exact path={item.path} component={item.component} key={index} ></Route>
-                    )
-                  } else {
-                    return (
-                      <Route path={item.path} component={item.component} key={index} ></Route>
-                    )
-                  }
-                })
-
-                }
-              </div>
-        </div>
-      </Router>
-    )
+    return (<Home></Home>)
   }
 }
 export default App;

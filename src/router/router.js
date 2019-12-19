@@ -2,7 +2,9 @@ import Login from '../components/login/index'
 import Welcome from '../components/login/index'
 
 
+
 let routes = [
+
     {
         path: '/welcome',
         // exact: true,
@@ -11,7 +13,7 @@ let routes = [
     {
         path: '/login',
         component: Login
-    },
+    }
     
 ]
 
