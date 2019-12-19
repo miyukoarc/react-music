@@ -31,8 +31,13 @@ class Login extends React.Component {
             // let songList = [...this.state.songList]
             // songList.push({data.result.songs})
             this.setState({
-                songList:this.state.songList.concat(data.result.songs)
+                songList: []
+            },()=>{
+                this.setState({
+                    songList:this.state.songList.concat(data.result.songs)
+                })
             })
+            
             console.log(this.state.songList)
         })
         .catch(err => alert(err))
@@ -71,28 +76,33 @@ class Login extends React.Component {
                 <Row>
                 <Search placeholder="input search text" onSearch={value=>this.handleSearch(value)} enterButton />
                 </Row>
-                <List list={this.songList}></List>
+                {/* <List list={this.songList}></List> */}
+                <ul>{
+                    // console.log(this.props.songList)
+                    (this.state.songList||[]).map((item, index) => <li key={index}>{item.name}</li>)
+                    }</ul>
+
             </div>
         )
     }
 }
 
-class List extends React.Component {
-    constructor (props){
-        super(props)
-    }
-    render (){
-        return(
-            <div>
-    <div>{this.props.songList}</div>
-                <ul>{
-                    // console.log(this.props.songList)
-                    (this.props.songList||[]).map((item, index) => <i key={index}>{item.name}</i>)
-                    }</ul>
-            </div>
-        )
-    }
-}
+// class List extends React.Component {
+//     constructor (props){
+//         super(props)
+//     }
+//     render (){
+//         return(
+//             <div>
+//     <div>{this.props}</div>
+//                 <ul>{
+//                     // console.log(this.props.songList)
+//                     (this.props.songList||[]).map((item, index) => <i key={index}>{item.name}</i>)
+//                     }</ul>
+//             </div>
+//         )
+//     }
+// }
 
     //需要渲染什么数据
     function mapStateToProps(state) {
