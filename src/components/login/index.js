@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Button, Input } from 'antd'
+import { Row, Col, Button, Input, Avatar,List, Typography } from 'antd'
 import { connect } from 'react-redux'
 
 const { Search } = Input
@@ -16,7 +16,9 @@ class Login extends React.Component {
                 {
                     name: '23'
                 }
-            ]
+            ],
+            albumArr: [],
+            
         }
     }
 
@@ -41,6 +43,17 @@ class Login extends React.Component {
             console.log(this.state.songList)
         })
         .catch(err => alert(err))
+    }
+
+    goDetail (id){
+        fetch('http://localhost:4000/song/detail?ids='+id,{method: 'GET'})
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.songs)
+        })
+        .catch(err => {
+            alert(err)
+        })
     }
 
     handleApply(){
@@ -76,33 +89,22 @@ class Login extends React.Component {
                 <Row>
                 <Search placeholder="input search text" onSearch={value=>this.handleSearch(value)} enterButton />
                 </Row>
-                {/* <List list={this.songList}></List> */}
-                <ul>{
-                    // console.log(this.props.songList)
-                    (this.state.songList||[]).map((item, index) => <li key={index}>{item.name}</li>)
-                    }</ul>
+
+                    <List
+                        bordered
+                        dataSource={this.state.songList}
+                        renderItem={(item,index) => (
+                            <List.Item onClick={this.goDetail.bind(this,item.id)}>
+                                <Typography.Text>{index+1}.</Typography.Text> {item.name}
+                            </List.Item>
+                        )}
+                    />
+                    
 
             </div>
         )
     }
 }
-
-// class List extends React.Component {
-//     constructor (props){
-//         super(props)
-//     }
-//     render (){
-//         return(
-//             <div>
-//     <div>{this.props}</div>
-//                 <ul>{
-//                     // console.log(this.props.songList)
-//                     (this.props.songList||[]).map((item, index) => <i key={index}>{item.name}</i>)
-//                     }</ul>
-//             </div>
-//         )
-//     }
-// }
 
     //需要渲染什么数据
     function mapStateToProps(state) {
