@@ -1,7 +1,7 @@
 import React from 'react';
 // import routes from './router/router'
 // import logo from './logo.svg';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import {Redirect, BrowserRouter as Router, Route, Link } from 'react-router-dom';
 // import './App.css';
 
 import Login from './login/index'
@@ -29,6 +29,7 @@ class Home extends React.Component{
           </header>       
           
               <div>
+              <Redirect path="/" to="welcome"></Redirect>
                 {
 
                   routes.map((item,index)=>{

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Button, Input, Avatar,List, Typography } from 'antd'
+import { Row, Col, Button, Input,List, Typography } from 'antd'
 import { connect } from 'react-redux'
 
 const { Search } = Input
@@ -46,14 +46,15 @@ class Login extends React.Component {
     }
 
     goDetail (id){
-        fetch('http://localhost:4000/song/detail?ids='+id,{method: 'GET'})
-        .then(res => res.json())
-        .then(data => {
-            console.log(data.songs)
-        })
-        .catch(err => {
-            alert(err)
-        })
+        this.props.history.push({pathname: '/songDetail/'+id,state:{id:id}})
+        // fetch('http://localhost:4000/song/detail?ids='+id,{method: 'GET'})
+        // .then(res => res.json())
+        // .then(data => {
+        //     console.log(data.songs)
+        // })
+        // .catch(err => {
+        //     alert(err)
+        // })
     }
 
     handleApply(){
@@ -105,7 +106,9 @@ class Login extends React.Component {
         )
     }
 }
-
+/**
+ * 
+ */
     //需要渲染什么数据
     function mapStateToProps(state) {
         return {
