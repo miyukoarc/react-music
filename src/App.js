@@ -1,27 +1,19 @@
 import React from 'react';
-import Home from './components/home'
-// import routes from './router/router'
-// import logo from './logo.svg';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-// import './App.css';
+import { BrowserRouter as Router,Switch,Route,Link,Redirect,useParams } from 'react-router-dom';
+import Welcome from './components/welcome'
+import Search from './components/search'
 
-// import Login from './components/login/index'
-// import Welcome from './components/welcome/index'
-
-// let routes = [
-//   {
-//     path: '/login',
-//     exact: true,
-//     component: Login
-//   },
-//   {
-//     path: '/welcome',
-//     component: Welcome
-//   }
-// ]
 class App extends React.Component{
   render (){
-    return (<Home></Home>)
+    return (
+      <Router>
+        <Switch>
+          <Route path="/welcome" component={Welcome}></Route>
+          <Route path="/search" component={Search}></Route>
+          <Redirect to="/welcome"></Redirect>
+        </Switch>
+      </Router>
+    )
   }
 }
 export default App;

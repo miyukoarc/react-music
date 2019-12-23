@@ -1,20 +1,33 @@
 import React from 'react'
-// import { Row, Col } from 'antd';
-import { Button } from 'antd';
 
 class Welcome extends React.Component {
     constructor (props){
         super(props)
-
         this.state = {
-            list: []
+            countDown: 4
         }
+
         this.handleClick = this.handleClick.bind(this)
 
     }
+    
+    componentDidMount(){
+        let timer = setInterval(()=>{
+            this.setState(()=>{
+                countDown: this.state.countDown = this.state.countDown-1
+            },()=>{
+                console.log(this.state.countDown)
+                if(this.state.countDown==0){
+                    clearInterval(timer)
+                }
+            })
+
+        },1000)
+    }
+
 
     handleClick (){
-        // console.log(1)
+
         fetch('https://10.10.10.234:8080/token?page=0&size=20')
         .then(res => res.json())
         .then(data => {
@@ -28,29 +41,11 @@ class Welcome extends React.Component {
         return (
             <div>
                 <span>欢迎</span>
-                <Button type="primary" onClick={this.handleClick}>Primary</Button>
-                <List list={this.list}></List>
-
+                <span>{this.state.countDown}</span>
             </div>
         )
     }
 }
 
-class List extends React.Component {
-    constructor (props){
-        super (props)
-    }
-
-    render (){
-        return (
-            <ul>
-            {
-    (this.props.list||[]).map((item, index) => <li key={index}>{item.name}</li>)
-            }
-        </ul>
-        )
-        
-    }
-}
 
 export default Welcome

@@ -22,6 +22,7 @@ class Login extends React.Component {
         }
     }
 
+
     handleSearch (value){
         fetch('http://localhost:4000/search?keywords='+value,
         {
@@ -29,9 +30,6 @@ class Login extends React.Component {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
-            // let songList = [...this.state.songList]
-            // songList.push({data.result.songs})
             this.setState({
                 songList: []
             },()=>{
@@ -56,6 +54,8 @@ class Login extends React.Component {
         //     alert(err)
         // })
     }
+    
+     
 
     handleApply(){
         console.log(this.refs.myInput.value)
