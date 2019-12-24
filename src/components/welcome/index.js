@@ -13,11 +13,13 @@ class Welcome extends React.Component {
     
     componentDidMount(){
         let timer = setInterval(()=>{
-            this.setState(()=>{
-                countDown: this.state.countDown = this.state.countDown-1
+            this.setState({
+                countDown: this.state.countDown -=1
             },()=>{
                 console.log(this.state.countDown)
+                
                 if(this.state.countDown==0){
+                    this.props.history.push('/search')
                     clearInterval(timer)
                 }
             })
