@@ -1,6 +1,7 @@
 import React from 'react'
 import request from '../../api'
 import { NavBar, Icon } from 'antd-mobile';
+import './index.css'
 
 class songDetail extends React.Component {
 
@@ -18,7 +19,6 @@ class songDetail extends React.Component {
 
     componentDidMount() {
         console.log(this.props.match.params.id)
-        // this.getSongDetail()
         this.getDetail(this.props.match.params.id)
 
     }
@@ -72,6 +72,17 @@ class songDetail extends React.Component {
                         <Icon key="1" type="ellipsis" />,
                     ]}
                 >NavBar</NavBar>
+            </div>
+        )
+    }
+}
+
+
+class AlbumImg extends React.Component {
+    render (){
+        return (
+            <div className={'container'}>
+                <div className={'album'}></div>
             </div>
         )
     }
