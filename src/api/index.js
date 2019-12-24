@@ -1,14 +1,8 @@
-
-// const baseUrl = "http://localhost:4000"
-
-
-
 class Request {
 
     constructor (){
         this._baseUrl = "http://localhost:4000"//假装这是私有变量
     }
-
 
     get(url) {
         return new Promise((resolve, reject) => {
