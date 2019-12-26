@@ -22,22 +22,35 @@ class SearchModel extends React.Component {
     }
 
     handleSearch(value){
-
-        fetch('http://localhost:4000/search?keywords='+value)
-        .then(res => res.json())
-        .then(data => {
-            this.setState({
-                songList: []
-            },() => {
+        request.get('/search?keywords='+value)
+            .then(res=> {
                 this.setState({
-                    songList: this.state.songList.concat(data.result.songs)
+                    songList: []
+                },() => {
+                    this.setState({
+                        songList: this.state.songList.concat(res.result.songs)
+                    })
                 })
             })
-            console.log(data)
-        })
-        .catch(err=>{
-            alert(err)
-        })
+            .catch(err=>{
+                alert(err)
+            })
+
+        // fetch('http://localhost:4000/search?keywords='+value)
+        // .then(res => res.json())
+        // .then(data => {
+        //     this.setState({
+        //         songList: []
+        //     },() => {
+        //         this.setState({
+        //             songList: this.state.songList.concat(data.result.songs)
+        //         })
+        //     })
+        //     console.log(data)
+        // })
+        // .catch(err=>{
+        //     alert(err)
+        // })
     }
 
     backPage (){

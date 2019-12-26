@@ -58,9 +58,10 @@ class Login extends React.Component {
      
 
     handleApply(){
-        console.log(this.refs.myInput.value)
+        // console.log(this.refs.myInput.value)
         // console.log(num)
-        this.props.PayAny(this.refs.myInput.value)
+        console.log(1)
+        // this.props.PayAny(this.refs.myInput.value)
         // this.props.num = this.refs.myInput.value
      }   
 

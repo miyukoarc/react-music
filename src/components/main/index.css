@@ -1,3 +1,11 @@
+
+
+li,ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
 .my-drawer {
     position: absolute;
     overflow: auto;
@@ -16,6 +24,13 @@
 .am-drawer .am-drawer-draghandle {
     background-color: transparent;
 }
-.bold{
-    font-weight: bold;
+
+h1,h2,h3,h4,h5,h6{
+    margin-bottom: 0;
+}
+.h1,.h2,.h3,.h4,.h5,.h6{
+    margin-bottom: 0;
+    margin-top: 0;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 700;
 }

@@ -19,7 +19,7 @@ class Welcome extends React.Component {
                 console.log(this.state.countDown)
                 
                 if(this.state.countDown==0){
-                    this.props.history.push('/search')
+                    this.props.history.push('/home')
                     clearInterval(timer)
                 }
             })
@@ -31,7 +31,9 @@ class Welcome extends React.Component {
     handleClick (){
 
         fetch('https://10.10.10.234:8080/token?page=0&size=20')
+
         .then(res => res.json())
+
         .then(data => {
             console.log(data)
             this.setState({list:data})
