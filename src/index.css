@@ -44,6 +44,14 @@ code {
     padding: 0 1.5em;
 }
 
+.px-4{
+    padding: 0 2em;
+}
+
+.px-5{
+    padding: 0 2.5em;
+}
+
 .py-1{
     padding: 0.5em 0;
 }
@@ -54,9 +62,50 @@ code {
     padding: 1.5em 0;
 }
 
+.py-4{
+    padding: 2em 0;
+}
+
+.py-5
+{
+    padding: 2.5em 0;
+}
+
+.mx-1{
+    margin: 0 0.5em;
+}
+.mx-2{
+    margin: 0 1em;
+}
+.mx-3{
+    margin: 0 1.5em;
+}
+.mx-4{
+    margin: 0 2em
+}
+.mx-5{
+    margin: 0 2.5em;
+}
+
 .mt-1{
     margin: 0.5em 0 0 0;
 }
+.mt-2{
+    margin: 1em 0 0 0;
+}
+
+.mt-3{
+    margin: 1.5em 0 0 0;
+}
+
+.mt-4{
+    margin: 2em 0 0 0;
+}
+
+.mt-5{
+    margin: 2.5em 0 0 0;
+}
+
 
 
 
@@ -89,13 +138,14 @@ code {
 .justify-content-between{
     justify-content: space-between;
 }
-.am-tabs-default-bar{
-
-}
-.am-tabs-default-bar-tab {}
-.am-tabs-default-bar-tab-active {
-
+.position-absolute{
+    position: absolute;
 }
 
+.position-relative{
+    position: relative;
+    left: 0;
+    top: 0;
+}
 
 

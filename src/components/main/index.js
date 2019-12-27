@@ -2,7 +2,7 @@ import React from 'react'
 import { NavBar, Icon, SearchBar, Drawer, ActivityIndicator, Carousel, WingBlank, Grid, Button,Tabs } from "antd-mobile";
 import request from '../../api'
 import './index.css'
-import {tsThisType} from "@babel/types";
+
 
 
 class Home extends React.Component{
@@ -116,97 +116,100 @@ class Home extends React.Component{
                         <Icon key="1" type="ellipsis" />,
                     ]}
                 >NavBar</NavBar>
+                <Drawer
+                    className="my-drawer"
+                    style={{ minHeight: document.documentElement.clientHeight }}
+                    enableDragHandle
+                    contentStyle={{ color: '#A6A6A6' }}
+                    sidebar={sidebar}
+                    open={this.state.open}
+                    onOpenChange={this.onOpenChange}
+                >
 
-                {/*<Drawer*/}
-                {/*    className="my-drawer"*/}
-                {/*    style={{ minHeight: document.documentElement.clientHeight }}*/}
-                {/*    enableDragHandle*/}
-                {/*    contentStyle={{ color: '#A6A6A6', textAlign: 'center', paddingTop: 42 }}*/}
-                {/*    sidebar={sidebar}*/}
-                {/*    open={this.state.open}*/}
-                {/*    onOpenChange={this.onOpenChange}*/}
-                {/*>*/}
-                {/*    Click upper-left corner*/}
-                {/*</Drawer>*/}
 
-                <SearchBar placeholder="Search" maxLength={8} />
-                <div>
-                    <WingBlank size="md">
-                        <Carousel
-                            autoplay
-                            infinite
-                            beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                            afterChange={index => console.log('slide to', index)}
-                        >
-                            {this.state.banner.map((item,index) => (
-                                <a
-                                    key={index}
-                                    href="http://www.alipay.com"
-                                    style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
-                                >
-                                    <img
-                                        src={item.pic}
-                                        alt=""
-                                        style={{ width: '100%', verticalAlign: 'top',borderRadius: '5px' }}
-                                        onLoad={() => {
-                                            // fire window resize event to change height
-                                            window.dispatchEvent(new Event('resize'));
-                                            this.setState({ imgHeight: 'auto' });
-                                        }}
-                                    />
-                                </a>
-                            ))}
-                        </Carousel>
-                    </WingBlank>
-                </div>
-                <div>
-                    <WingBlank size="md">
-                        <Grid data={personalMenu} columnNum={5}
-                              renderItem={dataItem => (<div style={{overflow:'hidden'}}>
-                                  <img src={dataItem.icon} style={{ width: '36px', height: '36px',borderRadius:'50%'}} alt=""/>
-                                  <div style={{color:'#888',fontSize:'12px',textAlign: 'center'}}>
-                                      <span>{dataItem.name}</span>
-                                  </div>
-                              </div>)}
-                        />
-                    </WingBlank>
-                </div>
 
-                <div className={'mt-1'}>
-                    <WingBlank size="md">
-                        <div className={'d-flex justify-content-between'}>
-                            <span className={'h4'}>推荐歌单</span>
-                            <div style={{height:'20px',lineHeight:'18px',padding:'0 5px',border:'1px solid #ddd',borderRadius: '10px'}}>
-                                <span style={{fontSize:'12px'}}>歌单广场</span>
+                    <SearchBar placeholder="Search" maxLength={8} />
+                    <div>
+                        <WingBlank size="md">
+                            <Carousel
+                                autoplay
+                                infinite
+                                beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+                                afterChange={index => console.log('slide to', index)}
+                            >
+                                {this.state.banner.map((item,index) => (
+                                    <a
+                                        key={index}
+                                        href="http://www.alipay.com"
+                                        style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                                    >
+                                        <img
+                                            src={item.pic}
+                                            alt=""
+                                            style={{ width: '100%', verticalAlign: 'top',borderRadius: '5px' }}
+                                            onLoad={() => {
+                                                // fire window resize event to change height
+                                                window.dispatchEvent(new Event('resize'));
+                                                this.setState({ imgHeight: 'auto' });
+                                            }}
+                                        />
+                                    </a>
+                                ))}
+                            </Carousel>
+                        </WingBlank>
+                    </div>
+                    <div>
+                        <WingBlank size="md">
+                            <Grid data={personalMenu} columnNum={5}
+                                  renderItem={dataItem => (<div style={{overflow:'hidden'}}>
+                                      <img src={dataItem.icon} style={{ width: '36px', height: '36px',borderRadius:'50%'}} alt=""/>
+                                      <div style={{color:'#888',fontSize:'12px',textAlign: 'center'}}>
+                                          <span>{dataItem.name}</span>
+                                      </div>
+                                  </div>)}
+                            />
+                        </WingBlank>
+                    </div>
+
+                    <div className={'mt-1'}>
+                        <WingBlank size="md">
+                            <div className={'d-flex justify-content-between'}>
+                                <span className={'h4'}>推荐歌单</span>
+                                <div style={{height:'20px',lineHeight:'18px',padding:'0 5px',border:'1px solid #ddd',borderRadius: '10px'}}>
+                                    <span style={{fontSize:'12px'}}>歌单广场</span>
+                                </div>
+                                {/*<Button style={{fontSize:'12px', display:'block',lineHeight:'20px',height:'24px',borderRadius:'10px',padding:'2px 5px',border:'1px solid #ddd'}}>歌单广场</Button>*/}
                             </div>
-                            {/*<Button style={{fontSize:'12px', display:'block',lineHeight:'20px',height:'24px',borderRadius:'10px',padding:'2px 5px',border:'1px solid #ddd'}}>歌单广场</Button>*/}
-                        </div>
-                    </WingBlank>
-                </div>
+                        </WingBlank>
+                    </div>
 
-                <div>
-                    <WingBlank size="md">
-                        {/*<Grid data={this.state.songsLists}*/}
-                        {/*      columnNum={3}*/}
-                        {/*      renderItem={dataItem => (*/}
-                        {/*          <div style={{ overflow: 'hidden' }}>*/}
-                        {/*              <img src={dataItem.picUrl} style={{ width: '108px', height: '108px', borderRadius:'4px' }} alt="" />*/}
-                        {/*              <div style={{ color: '#888', fontSize: '12px', marginTop: '0px' }}>*/}
-                        {/*                  <span>{dataItem.name}</span>*/}
-                        {/*              </div>*/}
-                        {/*          </div>*/}
-                        {/*      )}*/}
-                        {/*/>*/}
-                        <SongMenu data={this.state.songsLists}/>
-                    </WingBlank>
+                    <div>
+                        <WingBlank size="md">
+                            {/*<Grid data={this.state.songsLists}*/}
+                            {/*      columnNum={3}*/}
+                            {/*      renderItem={dataItem => (*/}
+                            {/*          <div style={{ overflow: 'hidden' }}>*/}
+                            {/*              <img src={dataItem.picUrl} style={{ width: '108px', height: '108px', borderRadius:'4px' }} alt="" />*/}
+                            {/*              <div style={{ color: '#888', fontSize: '12px', marginTop: '0px' }}>*/}
+                            {/*                  <span>{dataItem.name}</span>*/}
+                            {/*              </div>*/}
+                            {/*          </div>*/}
+                            {/*      )}*/}
+                            {/*/>*/}
+                            <SongMenu data={this.state.songsLists}/>
+                        </WingBlank>
 
-                </div>
+                    </div>
 
-                <div>
-                    <WingBlank size="md">
-                        <NewTabs />
-                    </WingBlank>
-                </div>
+                    {/*<div>*/}
+                    {/*    <WingBlank size="md">*/}
+                    {/*        <NewTabs />*/}
+                    {/*    </WingBlank>*/}
+                    {/*</div>*/}
+
+                </Drawer>
+
+
 
 
             </div>
