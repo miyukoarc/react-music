@@ -6,6 +6,8 @@ import SongDetail from './components/songDetail'
 import Home from './components/main'
 import Login from './components/login'
 import MainPage from './components/mainPage'
+import SignIn from './components/signIn/'
+import phoneCaptcha from './components/phoneCaptcha/'
 
 class App extends React.Component{
   render (){
@@ -16,7 +18,9 @@ class App extends React.Component{
           <Route path="/home" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/search" component={Search} />
+          <Route path="/signIn" component={SignIn}/>
           <Route path="/mainPage" component={MainPage}/>
+          <Route path="/phoneCaptcha" component={phoneCaptcha}/>
             <Route path="/songDetail/:id" component={SongDetail} />
           <Redirect to="/welcome"/>
         </Switch>

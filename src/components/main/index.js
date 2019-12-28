@@ -92,7 +92,7 @@ class Home extends React.Component{
                 name: '私人FM'
             }
         ]
-        const sidebar = (<div>
+        const sidebar = (<div style={{width:'80%'}}>
             <ul>
 
                 <li>登录</li>
@@ -110,7 +110,7 @@ class Home extends React.Component{
                 <NavBar
                     mode="light"
                     icon={<Icon type="ellipsis" />}
-                    onLeftClick={() => this.onOpenChange}
+                    onLeftClick={() => console.log('back')}
                     rightContent={[
                         <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
                         <Icon key="1" type="ellipsis" />,
