@@ -1,12 +1,45 @@
 import * as React from "react";
-import {Icon, InputItem, NavBar} from "antd-mobile";
+import {Icon, InputItem, List, NavBar, Toast} from "antd-mobile";
 import {createForm} from "rc-form";
+import {Button} from "antd";
 
 
 class phoneCaptcha extends React.Component{
+    constructor(props){
+        super(props)
+        this.state ={
+            hasError:false
+        }
+    }
 
-    checkCaptcha (){
-        console.log(1)
+    onErrorClick = () => {
+        if (this.state.hasError) {
+            Toast.info('请输入正确的验证码');
+        }
+    }
+    onChange = (value) => {
+        console.log(value)
+        if (value.replace(/\s/g, '').length != 4) {
+            this.setState({
+                hasError: true,
+            });
+        } else {
+            this.setState({
+                hasError: false,
+            });
+        }
+        this.setState({
+            value,
+            phone:value,
+        },()=>{
+            console.log(this.state)
+
+        });
+
+    }
+
+    handleApply (){
+
     }
     render (){
         const { getFieldProps } = this.props.form;
@@ -19,14 +52,22 @@ class phoneCaptcha extends React.Component{
                     onLeftClick={() => console.log('back')}
                     leftContent={<span className={'font-size-14'} style={{color:'#000'}}>验证码</span>}
                 />
+                <List>
+                    <InputItem
+                        type="digit"
+                        placeholder=""
+                        error={this.state.hasError}
+                        onErrorClick={this.onErrorClick}
+                        onChange={this.onChange}
+                        value={this.state.value}
 
-                <InputItem
-                    {...getFieldProps('digit')}
-                    type="digit"
-                    placeholder=""
-                    maxLength={4}
-                    onChange={this.checkCaptcha()}
-                ><span className={'font-size-14'}>&nbsp;</span></InputItem>
+                    ><span className={'font-size-14'}>+86{this.props.location.state.phone.replace(/\s+/g,"")}</span></InputItem>
+                    <div className={'px-5 mx-5 mt-5'}>
+                        <Button block shape={'round'} disabled={this.props.hasPost} onClick={this.handleApply}>登录</Button>
+                    </div>
+                </List>
+
+
             </div>
         )
     }

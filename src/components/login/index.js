@@ -22,6 +22,11 @@ class Login extends React.Component {
         }
     }
 
+    componentDidMount(){
+        console.log(1)
+        console.log(this.props)
+    }
+
 
     handleSearch (value){
         fetch('http://localhost:4000/search?keywords='+value,
@@ -58,11 +63,7 @@ class Login extends React.Component {
      
 
     handleApply(){
-        // console.log(this.refs.myInput.value)
-        // console.log(num)
         console.log(1)
-        // this.props.PayAny(this.refs.myInput.value)
-        // this.props.num = this.refs.myInput.value
      }   
 
     render (){

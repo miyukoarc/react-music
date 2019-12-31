@@ -2,7 +2,7 @@ import React from 'react'
 
 class Welcome extends React.Component {
     constructor (props){
-        super(props)
+        super(props);
         this.state = {
             countDown: 4
         }
@@ -16,10 +16,10 @@ class Welcome extends React.Component {
             this.setState({
                 countDown: this.state.countDown -=1
             },()=>{
-                console.log(this.state.countDown)
+                console.log(this.state.countDown);
                 
-                if(this.state.countDown==0){
-                    this.props.history.push('/home')
+                if(this.state.countDown===0){
+                    this.props.history.push('/home');
                     clearInterval(timer)
                 }
             })
@@ -35,7 +35,7 @@ class Welcome extends React.Component {
         .then(res => res.json())
 
         .then(data => {
-            console.log(data)
+            console.log(data);
             this.setState({list:data})
         })
         .catch(err => alert(err))

@@ -14,13 +14,13 @@ class MainPage extends React.Component{
                 <div className={'px-5 mx-5'}>
 
 
-                    <Button block shape="round" size={'large'}>
+                    <Button block shape="round" size={'large'} onClick={this.props.history.push('/signIn')}>
                         <span className={'font-size-14 px-5'}>手机号登录</span>
                     </Button>
 
                     <div className={'mt-1'}></div>
 
-                    <Button block shape="round" size={'large'}>
+                    <Button block shape="round" size={'large'} onClick={this.props.history.push('/welcome')}>
                         <span className={'font-size-14 px-5'}>立即体验</span>
                     </Button>
 
