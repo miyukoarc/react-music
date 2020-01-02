@@ -10,12 +10,16 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './store/reducer'
 
+
+
+
 //创建store
 const store = createStore(reducer);
 
 ReactDOM.render(
     <Provider store={store}>
-        <App /> 
+            <App />
+
     </Provider>,
     document.getElementById('root'));
 

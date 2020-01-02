@@ -2,7 +2,7 @@ import React from 'react'
 import { NavBar, Icon, SearchBar, Drawer, ActivityIndicator, Carousel, WingBlank, Grid, Button,Tabs } from "antd-mobile";
 import request from '../../api'
 import './index.css'
-
+import {withRouter} from "react-router";
 
 
 class Home extends React.Component{
@@ -18,13 +18,26 @@ class Home extends React.Component{
     }
 
     onOpenChange = (...args) => {
-        console.log(args);
         this.setState({ open: !this.state.open });
     }
 
     componentDidMount() {
         this.bannerInit()
         this.personalInit()
+    }
+
+    handleSearch (val){
+        return new Promise(((resolve, reject) => {
+            this.props.getKeywords(val)
+            resolve()
+
+        })).then(res=>{
+            this.props.history.push('/search')
+        }).catch(err=>{
+            alert(err)
+        })
+
+
     }
 
     bannerInit (){
@@ -92,7 +105,7 @@ class Home extends React.Component{
                 name: '私人FM'
             }
         ]
-        const sidebar = (<div style={{width:'80%'}}>
+        const sidebar = (<div style={{width:'300px'}}>
             <ul>
 
                 <li>登录</li>
@@ -110,7 +123,7 @@ class Home extends React.Component{
                 <NavBar
                     mode="light"
                     icon={<Icon type="ellipsis" />}
-                    onLeftClick={() => console.log('back')}
+                    onLeftClick={this.onOpenChange}
                     rightContent={[
                         <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
                         <Icon key="1" type="ellipsis" />,
@@ -126,9 +139,9 @@ class Home extends React.Component{
                     onOpenChange={this.onOpenChange}
                 >
 
+                    {/*<button onClick={()=>{this.props.getKeywords('牛逼')}}>提交</button>*/}
 
-
-                    <SearchBar placeholder="Search" maxLength={8} />
+                    <SearchBar placeholder="Search" maxLength={8} onSubmit={value => this.handleSearch(value)}/>
                     <div>
                         <WingBlank size="md">
                             <Carousel
@@ -185,27 +198,17 @@ class Home extends React.Component{
 
                     <div>
                         <WingBlank size="md">
-                            {/*<Grid data={this.state.songsLists}*/}
-                            {/*      columnNum={3}*/}
-                            {/*      renderItem={dataItem => (*/}
-                            {/*          <div style={{ overflow: 'hidden' }}>*/}
-                            {/*              <img src={dataItem.picUrl} style={{ width: '108px', height: '108px', borderRadius:'4px' }} alt="" />*/}
-                            {/*              <div style={{ color: '#888', fontSize: '12px', marginTop: '0px' }}>*/}
-                            {/*                  <span>{dataItem.name}</span>*/}
-                            {/*              </div>*/}
-                            {/*          </div>*/}
-                            {/*      )}*/}
-                            {/*/>*/}
+
                             <SongMenu data={this.state.songsLists}/>
                         </WingBlank>
 
                     </div>
 
-                    {/*<div>*/}
-                    {/*    <WingBlank size="md">*/}
-                    {/*        <NewTabs />*/}
-                    {/*    </WingBlank>*/}
-                    {/*</div>*/}
+                    <div>
+                        <WingBlank size="md">
+                            <NewTabs />
+                        </WingBlank>
+                    </div>
 
                 </Drawer>
 
@@ -254,40 +257,143 @@ class NewTabs extends React.Component{
             tab: '新歌'
         }
 
-        // this.changeTab = this.changeTab.bind(this)
+        this.changeTab = this.changeTab.bind(this)
+
     }
 
-    changeTab(){
-        console.log(1)
-        // this.setState({
-        //     tab:val
-        // })
+    changeTab (e){
+        console.log(1,e.target.getAttribute('data-temp'))
+        let src = e.target.getAttribute('data-temp');
+        if(src==='normal-song'){
+            this.setState({
+                tab:'新歌'
+            })
+        }
+        if(src==='normal-album'){
+            this.setState({
+                tab:'新碟'
+            })
+        }
     }
+
+
 
 
 
     render (){
         const tab = {
             fontSize:'12px',
-            color: '#ddd'
+            color: '#a6a6a6'
         }
         const tabActive ={
-            fontSize: '16px',
-            color: '#000'
-        }
+            fontSize: '14px',
+            color: 'rgba(0, 0, 0, 0.85)',
+            fontWeight: 700
+    }
 
         return (
             <div>
-                <div>
-                    <button onClick={this.changeTab.bind(this)}>实验</button>
-                    <span style={this.state.tab=='新歌'?tab:tabActive} >新歌</span>
-                    <span className={this.state.tab=='新碟'?tab:tabActive}>新碟</span>
+                <div className={'mt-1'}>
+
+                    <span data-temp="tiny-song" onClick={this.changeTab} style={tabActive} className={this.state.tab==='新歌'?'d-inline-block':'d-none'}>新歌</span>
+                    <span data-temp="tiny-album" onClick={this.changeTab} style={tabActive} className={this.state.tab==='新碟'?'d-inline-block':'d-none'}>新碟</span>
+                    &nbsp;|&nbsp;
+                    <span data-temp="normal-song" onClick={this.changeTab} style={tab} className={this.state.tab==='新碟'?'d-inline-block':'d-none'}>新歌</span>
+                    <span data-temp="normal-album" onClick={this.changeTab} style={tab} className={this.state.tab==='新歌'?'d-inline-block':'d-none'}>新碟</span>
                 </div>
                 <div>
-                    <div>这里是新歌列表</div>
-                    <div>这里是新碟列表</div>
+                    <NewSongs tabState={this.state.tab}/>
+                    <NewAlbum tabState={this.state.tab}/>
                 </div>
             </div>
+        )
+    }
+}
+
+class NewSongs extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={
+            list: []
+        }
+    }
+
+    componentWillMount() {
+        this.getSongs()
+    }
+
+    getSongs (){
+        request.get('/personalized/newsong')
+            .then(res=>{console.log(res)
+                this.setState({
+                    list:[].concat(res.result)
+                })
+            })
+            .catch(err=>{
+                alert(err)
+            })
+    }
+
+    render (){
+        return (
+            <ul className={this.props.tabState==='新歌'?'d-flex':'d-none'} style={{flexWrap:'wrap'}}>
+                {
+                    this.state.list.slice(0,3).map((item,index)=>
+                        <li key={index} style={{ width:'33.33%',position:'relative',top:'0',left:'0'}}>
+                            <div style={{padding:'5px',width:'100%',}}>
+                                <img style={{width:'100%',borderRadius:'4px'}} src={item.picUrl+'?param=400y400'} alt=""/>
+                            </div>
+                            <div className={'px-1 font-size-12'} style={{width:'100%'}}>
+                                {item.name}
+                            </div>
+                        </li>)
+                }
+
+            </ul>
+        )
+    }
+}
+
+class NewAlbum extends React.Component {
+    constructor(props){
+        super (props)
+        this.state={
+            list: []
+        }
+    }
+
+    componentWillMount() {
+        this.getAlbums()
+    }
+
+    getAlbums (){
+        request.get('/top/album?offset=0&limit=3')
+            .then(res=>{
+                this.setState({
+                    list:[].concat(res.albums)
+                },()=>{
+                    console.log(this.state.list)
+                })
+            })
+            .catch(err=>{alert(err)})
+    }
+
+    render (){
+        return (
+            <ul className={this.props.tabState==='新碟'?'d-flex':'d-none'} style={{flexWrap:'wrap'}}>
+        {
+            this.state.list.map((item,index)=>
+                <li key={index} style={{ width:'33.33%',position:'relative',top:'0',left:'0'}}>
+                    <div style={{padding:'5px',width:'100%',}}>
+                        <img style={{width:'100%',borderRadius:'4px'}} src={item.picUrl+'?param=400y400'} alt=""/>
+                    </div>
+                    <div className={'px-1 font-size-12'} style={{width:'100%'}}>
+                        {item.name}
+                    </div>
+                </li>)
+        }
+
+    </ul>
         )
     }
 }
@@ -295,4 +401,4 @@ class NewTabs extends React.Component{
 
 
 
-export default Home
+export default withRouter(Home)

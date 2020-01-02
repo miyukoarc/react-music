@@ -21,7 +21,12 @@ class SearchModel extends React.Component {
         }
     }
 
-    handleSearch(value){
+    componentDidMount() {
+        // console.log(this.props.keywords)
+        this.handleSearch(this.props.keywords||'菜鸟')
+    }
+
+    handleSearch(value='浮夸'){
         request.get('/search?keywords='+value)
             .then(res=> {
                 this.setState({
@@ -36,31 +41,16 @@ class SearchModel extends React.Component {
                 alert(err)
             })
 
-        // fetch('http://localhost:4000/search?keywords='+value)
-        // .then(res => res.json())
-        // .then(data => {
-        //     this.setState({
-        //         songList: []
-        //     },() => {
-        //         this.setState({
-        //             songList: this.state.songList.concat(data.result.songs)
-        //         })
-        //     })
-        //     console.log(data)
-        // })
-        // .catch(err=>{
-        //     alert(err)
-        // })
     }
 
     backPage (){
-        console.log(this.props.history)
         this.props.history.goBack()
     }
 
 
     goDetail (id){
-        this.props.history.push( `/songDetail/${id}`)
+        this.props.getSongId(id)
+        // this.props.history.push( `/songDetail/${id}`)
     }
 
     checkAccess (id){
@@ -89,7 +79,7 @@ class SearchModel extends React.Component {
                 >NavBar</NavBar>
                 <SearchBar placeholder="Search" maxLength={8} onSubmit={value => this.handleSearch(value)}/>
 
-                <Search placeholder="input search text" size="large" onSearch={value=>this.handleSearch(value)} enterButton />
+                {/*<Search placeholder="input search text" size="large" onSearch={value=>this.handleSearch(value)} enterButton />*/}
 
                 {
                     this.state.songList?  <List

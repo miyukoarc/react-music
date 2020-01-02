@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 
 
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
+
 let moneyKeyboardWrapProps;
 if (isIPhone) {
     moneyKeyboardWrapProps = {
@@ -81,7 +82,6 @@ class SignIn extends React.Component{
         //   .catch(err=>{
         //       alert(err)
         //   })
-          
       }
 
     showToast(){

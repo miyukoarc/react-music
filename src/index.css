@@ -143,6 +143,9 @@ code {
     display: none;
 }
 
+.cursor-pointer{
+    cursor:pointer;
+}
 .justify-content-between{
     justify-content: space-between;
 }
