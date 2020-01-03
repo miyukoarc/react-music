@@ -4,6 +4,7 @@ import { createForm } from 'rc-form';
 import {Button} from "antd";
 import request from "../../api"
 import { connect } from 'react-redux'
+import {withRouter} from "react-router";
 
 
 const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
@@ -32,12 +33,13 @@ class SignIn extends React.Component{
         isPhone: true
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        console.log(this.props)
     }
 
-    // onKeyup(){
-    //     console.log(1)
-    // }
+    componentDidMount() {
+        console.log(this.props)
+    }
 
     onErrorClick = () => {
         if (this.state.hasError) {
@@ -46,7 +48,7 @@ class SignIn extends React.Component{
       }
       onChange = (value) => {
           console.log(value)
-        if (value.replace(/\s/g, '').length != 11) {
+        if (value.replace(/\s/g, '').length !== 11) {
           this.setState({
             hasError: true,
           });
@@ -125,7 +127,7 @@ class SignIn extends React.Component{
                 <NavBar
                     mode="light"
                     icon={<Icon type="left" color={'#000'} />}
-                    onLeftClick={() => console.log('back')}
+                    onLeftClick={() => this.props.history.go(-1)}
                     leftContent={<span className={'font-size-14'} style={{color:'#000'}}>手机号登录</span>}
                 />
 
@@ -156,9 +158,9 @@ class SignIn extends React.Component{
                     </div>
                 </List>
 
-                
 
-                
+
+
             </div>
         )
     }
@@ -193,4 +195,4 @@ const mapDispatchToProps = (dispatch)=>{
 
 let renderSignIn =  createForm()(SignIn)
 
-export default renderSignIn = connect(mapStateToProps ,mapDispatchToProps)(renderSignIn)
+export default renderSignIn = withRouter(connect(mapStateToProps ,mapDispatchToProps)(renderSignIn))

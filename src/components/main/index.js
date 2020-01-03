@@ -3,6 +3,7 @@ import { NavBar, Icon, SearchBar, Drawer, ActivityIndicator, Carousel, WingBlank
 import request from '../../api'
 import './index.css'
 import {withRouter} from "react-router";
+import {connect} from "react-redux";
 
 
 class Home extends React.Component{
@@ -21,9 +22,13 @@ class Home extends React.Component{
         this.setState({ open: !this.state.open });
     }
 
+
+
     componentDidMount() {
         this.bannerInit()
         this.personalInit()
+        console.log(this.props.userInfo,this.props.loginState)
+
     }
 
     handleSearch (val){
@@ -50,7 +55,7 @@ class Home extends React.Component{
                         this.setState({
                             banner: [].concat(res.banners)
                         },()=>{
-                            console.log(this.state.banner)
+                            // console.log(this.state.banner)
                         })
 
                     })
@@ -71,7 +76,7 @@ class Home extends React.Component{
                     this.setState({
                         songsLists: [].concat(res.result)
                     },()=>{
-                        console.log(this.state.songsLists)
+                        // console.log(this.state.songsLists)
                     })
 
                 })
@@ -105,30 +110,24 @@ class Home extends React.Component{
                 name: '私人FM'
             }
         ]
-        const sidebar = (<div style={{width:'300px'}}>
-            <ul>
 
-                <li>登录</li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>)
+        const sidebar = (
+            <div style={{width:'300px'}} className={'p-3'}>
+                <div>
+                    <img className={'circle'} width={'48px'} height={'48px'} src={this.props.userInfo.avatarUrl} alt=""/>
+
+                </div>
+                <div>
+                    <span className={'font-size-12'} style={{color:'#000'}}>{this.props.userInfo.nickname}</span>
+                </div>
+            </div>)
 
 
         return (
 
 
             <div>
-                <NavBar
-                    mode="light"
-                    icon={<Icon type="ellipsis" />}
-                    onLeftClick={this.onOpenChange}
-                    rightContent={[
-                        <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
-                        <Icon key="1" type="ellipsis" />,
-                    ]}
-                >NavBar</NavBar>
+
                 <Drawer
                     className="my-drawer"
                     style={{ minHeight: document.documentElement.clientHeight }}
@@ -138,6 +137,16 @@ class Home extends React.Component{
                     open={this.state.open}
                     onOpenChange={this.onOpenChange}
                 >
+                    <NavBar
+                        style={{position:'sticky',top: '0',zIndex:'2'}}
+                        mode="light"
+                        icon={<Icon type="ellipsis" />}
+                        onLeftClick={this.onOpenChange}
+                        rightContent={[
+                            <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
+                            <Icon key="1" type="ellipsis" />,
+                        ]}
+                    >NavBar</NavBar>
 
                     {/*<button onClick={()=>{this.props.getKeywords('牛逼')}}>提交</button>*/}
 
@@ -222,30 +231,51 @@ class Home extends React.Component{
 
 
 
-class SongMenu extends React.Component {
-    constructor(props){
-        super(props)
-    }
-    render (){
-        return (
+// class SongMenu extends React.Component {
+//     constructor(props){
+//         super(props)
+//     }
+//     render (){
+//         return (
+//
+//             <ul style={{display:'flex',flexWrap:'wrap'}}>
+//                 {
+//                     this.props.data.map((item,index)=>
+//                         <li key={index} style={{ width:'33.33%',position:'relative',top:'0',left:'0'}}>
+//                             <div style={{padding:'5px',width:'100%',}}>
+//                                 <img style={{width:'100%',borderRadius:'4px'}} src={item.picUrl} alt=""/>
+//                             </div>
+//                             <div className={'px-1 font-size-12'} style={{width:'100%'}}>
+//                                 {item.name}
+//                             </div>
+//                             </li>)
+//                 }
+//
+//             </ul>
+//
+//         )
+//     }
+// }
 
-            <ul style={{display:'flex',flexWrap:'wrap'}}>
-                {
-                    this.props.data.map((item,index)=>
-                        <li key={index} style={{ width:'33.33%',position:'relative',top:'0',left:'0'}}>
-                            <div style={{padding:'5px',width:'100%',}}>
-                                <img style={{width:'100%',borderRadius:'4px'}} src={item.picUrl} alt=""/>
-                            </div>
-                            <div className={'px-1 font-size-12'} style={{width:'100%'}}>
-                                {item.name}
-                            </div>
-                            </li>)
-                }
+function SongMenu (props){
+    // const {data} = this.props
+    return (
+        <ul style={{display:'flex',flexWrap:'wrap'}}>
+            {
+                props.data.map((item,index)=>
+                    <li key={index} style={{ width:'33.33%',position:'relative',top:'0',left:'0'}}>
+                        <div style={{padding:'5px',width:'100%',}}>
+                            <img style={{width:'100%',borderRadius:'4px'}} src={item.picUrl} alt=""/>
+                        </div>
+                        <div className={'px-1 font-size-12'} style={{width:'100%'}}>
+                            {item.name}
+                        </div>
+                    </li>)
+            }
 
-            </ul>
+        </ul>
 
-        )
-    }
+    )
 }
 
 
@@ -320,11 +350,13 @@ class NewSongs extends React.Component{
 
     componentWillMount() {
         this.getSongs()
+
     }
 
     getSongs (){
         request.get('/personalized/newsong')
-            .then(res=>{console.log(res)
+            .then(res=>{
+                // console.log(res)
                 this.setState({
                     list:[].concat(res.result)
                 })
@@ -372,7 +404,7 @@ class NewAlbum extends React.Component {
                 this.setState({
                     list:[].concat(res.albums)
                 },()=>{
-                    console.log(this.state.list)
+                    // console.log(this.state.list)
                 })
             })
             .catch(err=>{alert(err)})
@@ -399,6 +431,15 @@ class NewAlbum extends React.Component {
 }
 
 
+function mapStateToProps (state){
+    return {
+        userInfo: state.userInfo,
+        loginState: state.loginState
+    }
+
+}
 
 
-export default withRouter(Home)
+
+
+export default Home = withRouter(connect(mapStateToProps)(Home))

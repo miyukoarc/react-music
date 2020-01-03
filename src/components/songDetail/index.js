@@ -2,6 +2,7 @@ import React from 'react'
 import request from '../../api'
 import { NavBar, Icon } from 'antd-mobile';
 import './index.css'
+import {withRouter} from "react-router";
 
 class songDetail extends React.Component {
 
@@ -58,6 +59,14 @@ class songDetail extends React.Component {
 
     }
 
+    componentWillMount() {
+        console.log(this.props)
+    }
+
+    componentDidMount() {
+        console.log(this.props)
+    }
+
 
 
     render (){
@@ -88,4 +97,4 @@ class AlbumImg extends React.Component {
     }
 }
 
-export default songDetail
+export default withRouter(songDetail)

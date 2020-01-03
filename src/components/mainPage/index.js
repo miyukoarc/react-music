@@ -1,5 +1,6 @@
 import * as React from "react";
 import {Button} from "antd";
+import {withRouter} from "react-router";
 
 class MainPage extends React.Component{
 
@@ -17,7 +18,15 @@ class MainPage extends React.Component{
     LoginLater (){
         this.props.history.push('/welcome')
     }
-    
+
+    componentWillMount() {
+        console.log(this.props)
+    }
+
+    componentDidMount() {
+        console.log(this.props)
+    }
+
     render (){
         return (
             <div className={'position-absolute'} style={{textAlign:'center',width:'100%',height: 'auto',bottom:'200px'}}>
@@ -43,4 +52,4 @@ class MainPage extends React.Component{
     }
 }
 
-export default MainPage
+export default withRouter(MainPage)

@@ -2,7 +2,7 @@ import * as React from "react";
 import {Icon, InputItem, List, NavBar, Toast} from "antd-mobile";
 import {createForm} from "rc-form";
 import {Button} from "antd";
-
+import {withRouter} from "react-router";
 
 class phoneCaptcha extends React.Component{
     constructor(props){
@@ -38,6 +38,14 @@ class phoneCaptcha extends React.Component{
 
     }
 
+    componentWillMount() {
+        console.log(this.props)
+    }
+
+    componentDidMount() {
+        console.log(this.props)
+    }
+
     handleApply (){
 
     }
@@ -49,7 +57,7 @@ class phoneCaptcha extends React.Component{
                 <NavBar
                     mode="light"
                     icon={<Icon type="left" color={'#000'} />}
-                    onLeftClick={() => console.log('back')}
+                    onLeftClick={() => console.log(this.props)}
                     leftContent={<span className={'font-size-14'} style={{color:'#000'}}>验证码</span>}
                 />
                 <List>
@@ -76,4 +84,4 @@ class phoneCaptcha extends React.Component{
 
 const renderPhoneCapycha  = createForm()(phoneCaptcha)
 
-export default renderPhoneCapycha
+export default withRouter(renderPhoneCapycha)

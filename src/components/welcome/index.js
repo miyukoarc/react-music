@@ -1,4 +1,5 @@
 import React from 'react'
+import {withRouter} from "react-router";
 
 class Welcome extends React.Component {
     constructor (props){
@@ -10,14 +11,14 @@ class Welcome extends React.Component {
         this.handleClick = this.handleClick.bind(this)
 
     }
-    
+
     componentDidMount(){
         let timer = setInterval(()=>{
             this.setState({
                 countDown: this.state.countDown -=1
             },()=>{
                 console.log(this.state.countDown);
-                
+
                 if(this.state.countDown===0){
                     this.props.history.push('/home');
                     clearInterval(timer)
@@ -52,4 +53,4 @@ class Welcome extends React.Component {
 }
 
 
-export default Welcome
+export default withRouter(Welcome)

@@ -6,7 +6,10 @@ class Request {
 
     get(url) {
         return new Promise((resolve, reject) => {
-            fetch(this._baseUrl + url)
+            fetch(this._baseUrl + url,
+                {
+                    credentials: 'include'
+                })
                 .then(res => res.json())
                 .then(data => resolve(data))
                 .catch(err => reject(err))
@@ -21,7 +24,8 @@ class Request {
                     headers: {
                         'Content-type': 'application/json'
                     },
-                    body: JSON.stringify(data)
+                    body: JSON.stringify(data),
+                    credentials: 'include'
                 })
                 .then(res => res.json())
                 .then(data => resolve(data))

@@ -6,6 +6,8 @@ import { Input, List, Typography,message, PageHeader } from 'antd'
 
 import { NavBar, Icon, SearchBar } from "antd-mobile";
 
+import {withRouter} from "react-router";
+
 
 const { Search } = Input
 
@@ -20,9 +22,13 @@ class SearchModel extends React.Component {
             songList: []
         }
     }
+    componentWillMount() {
+        console.log(this.props)
+    }
+
 
     componentDidMount() {
-        // console.log(this.props.keywords)
+        console.log(this.props)
         this.handleSearch(this.props.keywords||'菜鸟')
     }
 
@@ -93,10 +99,10 @@ class SearchModel extends React.Component {
                     />:<div></div>
                 }
             </div>
-            
+
         )
     }
 }
 
-export default SearchModel
+export default withRouter(SearchModel)
 

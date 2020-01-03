@@ -1,18 +1,26 @@
-const count = 1000;
-const captcha = {
+// const count = 1000;
+
+
+import storage from 'redux-persist/lib/storage';
+import { PersistGate } from 'redux-persist/es/integration/react';
+import {persistCombineReducers} from 'redux-persist'
+
+
+const _state = {
     count: 10,
     hasPost: false,
-    timer: null
+    timer: null,
+    userInfo: null,
+    loginState: false
 };
 
-const reducer = ((state=captcha, action) => {
+const reducer = ((state=_state, action) => {
     switch(action.type){
         case 'countOn':
 
             return {count:10,hasPost:true};
 
         case 'onCounting':
-            console.log(state)
             // return {count:state.count-1,hasPost:true};
             return Object.assign({},state,{
                 count:state.count-1,
@@ -21,9 +29,8 @@ const reducer = ((state=captcha, action) => {
             //两种形式均可
 
         case 'asyncCounting':
-            console.log(state)
             return Object.assign({},state,{
-                
+
                 hasPost:true,
                 timer: state.timer=setInterval(()=>{
                     state.count-=1;
@@ -35,9 +42,29 @@ const reducer = ((state=captcha, action) => {
 
             })
         case 'countOff':
-            console.log(state)
-            
+
             return {count:state.count=10,hasPost:state.hasPost=false}
+
+
+            //
+        case 'signIn':
+            return Object.assign({},state,{
+                ...state,
+                loginState: true
+            })
+        case 'saveUserInfo':
+            // console.log(action.info);
+            return Object.assign({},state,{
+                ...state,
+                userInfo: action.info
+            })
+
+        case 'logOut':
+            return Object.assign({},state,{
+                ...state,
+                userInfo: null,
+                loginState: true
+            })
         default:
             return state;
     }

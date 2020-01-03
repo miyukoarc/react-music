@@ -9,17 +9,32 @@ import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './store/reducer'
+import { PersistGate } from 'redux-persist/es/integration/react';
+import storage from 'redux-persist/lib/storage';
+import {persistStore, persistReducer} from 'redux-persist';
 
 
 
 
 //创建store
-const store = createStore(reducer);
+const config = {
+    key: 'root',
+    storage: storage,
+}
+
+const storageReducer = persistReducer(config, reducer)
+
+const store = createStore(storageReducer);
+
+const persistor = persistStore(store)
+
+
 
 ReactDOM.render(
     <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
             <App />
-
+        </PersistGate>
     </Provider>,
     document.getElementById('root'));
 

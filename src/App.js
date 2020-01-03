@@ -8,15 +8,11 @@ import Login from './components/login'
 import MainPage from './components/mainPage/'
 import SignIn from './components/signIn/'
 import SignInByPsw from './components/signInPassword/'
-import phoneCaptcha from './components/phoneCaptcha/'
+import PhoneCaptcha from './components/phoneCaptcha/'
 import MiniPlayer from './components/miniPlayer/'
-import {withRouter} from "react-router";
+
 
 class App extends React.Component{
-
-  // static propTypes = {
-  //     cookies: instanceOf(Cookies).isRequired
-  // };
   constructor(props){
     super(props)
     this.state={
@@ -43,24 +39,23 @@ class App extends React.Component{
   render (){
     return (
         <div>
-          <Router>
+          <Router >
             <Switch>
-              <Route path="/mainPage" component={MainPage}/>
-              <Route path="/welcome" component={Welcome} />
+              <Route exact path="/mainPage" render={(props)=><MainPage {...props}/>}/>
+              <Route exact path="/welcome" render={(props)=><Welcome {...props}/>}/>
               {/*<Route path="/home" component={()=>(<Home getKeywords={val=>{this.onGetKeyWords(val)}}/>)}/>} />*/}
-              <Route path="/home" render={(props)=><Home {...props} getKeywords={val=>this.onGetKeyWords(val)}/>} />
-              <Route path="/login" component={Login} />
+              <Route exact path="/home" render={(props)=><Home {...props} getKeywords={val=>this.onGetKeyWords(val)}/>} />
+              <Route exact path="/login" render={(props)=><Login {...props}/>}/>
               {/*<Route path="/search" render={<Search  getSongId={(id)=>this.onGetSongId(id)}/>} />*/}
-              <Route path="/search" render={(props)=><Search {...props} keywords={this.state.keywords} getSongId={id=>this.onGetSongId(id)}/>}/>
-              <Route path="/signIn" component={SignIn}/>
-              <Route path="/signInPsw" component={SignInByPsw}/>
-              <Route path="/phoneCaptcha" component={phoneCaptcha}/>
-              <Route path="/songDetail/:id" component={SongDetail} />
+              <Route exact path="/search" render={(props)=><Search {...props} keywords={this.state.keywords} getSongId={id=>this.onGetSongId(id)}/>}/>
+              <Route exact path="/signIn" render={(props)=><SignIn {...props} />}/>
+              <Route exact path="/signInPsw" render={(props)=><SignInByPsw {...props}/>}/>
+              <Route exact path="/phoneCaptcha" render={(props)=><PhoneCaptcha {...props}/>}/>
+              <Route exact path="/songDetail/:id" render={(props)=><SongDetail {...props}/>} />
               <Redirect to="/mainPage"/>
             </Switch>
           </Router>
           <MiniPlayer songId={this.state.songId}/>
-
         </div>
 
     )

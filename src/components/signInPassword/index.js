@@ -1,7 +1,9 @@
 import React from "react";
-import {Icon, InputItem, List, NavBar} from "antd-mobile";
+import {Icon, InputItem, List, NavBar, Toast} from "antd-mobile";
 import {Button} from "antd";
 import request from '../../api'
+import {connect} from "react-redux";
+import {withRouter} from "react-router";
 
 class SignByPsw extends React.Component {
     constructor(props){
@@ -14,11 +16,11 @@ class SignByPsw extends React.Component {
         this.getList = this.getList.bind(this)
     }
 
-    componentDidMount(){
-        console.log(1)
+    // componentDidMount(){
+        // console.log(1)
         // console.log(cookies.get())
-        console.log(this.props.history.location.state.phone)
-    }
+        // console.log(this.props.history.location.state.phone)
+    // }
 
     onChange = (value) => {
         this.setState({
@@ -36,6 +38,11 @@ class SignByPsw extends React.Component {
         request.get(`/login/cellphone?phone=${this.state.phone}&password=${this.state.password}`)
             .then(res=>{
                 console.log(res)
+
+                this.props.login()
+                this.props.storeUser(res.profile)
+                this.loadingToast()
+
             })
             .catch(err=>{
                 alert(err)
@@ -43,14 +50,28 @@ class SignByPsw extends React.Component {
 
     }
 
+    loadingToast (){
+        Toast.loading('loading...',1,()=>{
+            this.props.history.push('/home')
+        })
+    }
+
     getList (){
-        request.get('/recommend/resource')
+        request.get('/login/status')
             .then(res=>{
                 console.log(res)
             })
             .catch(err=>{
                 alert(err)
             })
+    }
+
+    componentWillMount() {
+        console.log(this.props)
+    }
+
+    componentDidMount() {
+        console.log(this.props)
     }
 
     render (){
@@ -63,7 +84,7 @@ class SignByPsw extends React.Component {
                 <NavBar
                     mode="light"
                     icon={<Icon type="left" color={'#000'} />}
-                    onLeftClick={() => console.log('back')}
+                    onLeftClick={() => this.props.history.go(-1)}
                     leftContent={<span className={'font-size-14'} style={{color:'#000'}}>手机登录</span>}
                 />
                 <form>
@@ -78,7 +99,7 @@ class SignByPsw extends React.Component {
                         />
                         <div className={'px-5 mx-5 mt-5'}>
                             <Button block shape={'round'}  onClick={this.handleApply.bind(this)}>登录</Button>
-                            <button onClick={this.getList}>验证</button>
+                            {/*<button onClick={this.getList}>验证</button>*/}
                         </div>
                     </List>
                 </form>
@@ -90,4 +111,20 @@ class SignByPsw extends React.Component {
     }
 }
 
-export default SignByPsw
+function mapStateToProps (state){
+    return {
+        userInfo: state.userInfo,
+        loginState: state.loginState
+    }
+
+}
+
+const mapDispatchToProps = (dispatch)=>{
+    return {
+        login:()=>dispatch({type:'signIn'}),
+        storeUser: (info)=> dispatch({type:'saveUserInfo',info:info}),
+        unlogin: ()=>dispatch({type:'logOut'})
+    }
+}
+
+export default SignByPsw = withRouter(connect(mapStateToProps,mapDispatchToProps)(SignByPsw))

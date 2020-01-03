@@ -70,6 +70,21 @@ code {
 {
     padding: 2.5em 0;
 }
+.p-1{
+    padding: 0.5em;
+}
+.p-2{
+    padding: 1em;
+}
+.p-3{
+    padding: 1.5em;
+}
+.p-4{
+    padding: 2em;
+}
+.p-5{
+    padding: 2.5em;
+}
 
 .mx-1{
     margin: 0 0.5em;
@@ -157,6 +172,9 @@ code {
     position: relative;
     left: 0;
     top: 0;
+}
+.circle {
+    border-radius: 50%
 }
 
 
