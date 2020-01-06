@@ -34,12 +34,9 @@ class SignIn extends React.Component{
     }
 
     componentWillMount() {
-        console.log(this.props)
+
     }
 
-    componentDidMount() {
-        console.log(this.props)
-    }
 
     onErrorClick = () => {
         if (this.state.hasError) {

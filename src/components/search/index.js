@@ -77,7 +77,7 @@ class SearchModel extends React.Component {
                 <NavBar
                     mode="light"
                     icon={<Icon type="left" />}
-                    onLeftClick={() => console.log('onLeftClick')}
+                    onLeftClick={() => this.props.history.go(-1)}
                     rightContent={[
                         <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
                         <Icon key="1" type="ellipsis" />,

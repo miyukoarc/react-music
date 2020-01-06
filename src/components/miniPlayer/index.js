@@ -11,28 +11,21 @@ class MiniPlayer extends React.Component{
     }
 
 
-
-    componentWillMount() {
-
+    static getDerivedStateFromProps (next,prev){
+        console.log(next, prev)
+        if(next.songId){
+            return {currentUrl:`https://music.163.com/song/media/outer/url?id=${next.songId}.mp3`}
+        }else return null;
     }
 
 
-    componentWillReceiveProps(nextProps, nextContext) {
-
-        if(nextProps.songId!==this.props.songId){
-            this.getSource(this.props.songId)
-        }
-    }
-
-
-    // shouldComponentUpdate (nextProps, nextContext){
-    //     if(this.props.songId!==nextProps.songId){
+    // componentWillReceiveProps(nextProps, nextContext) {
     //
-    //         return true;
-    //     }else
-    //         return false;
-    //
+    //     if(nextProps.songId!==this.props.songId){
+    //         this.getSource(this.props.songId)
+    //     }
     // }
+
 
 
 
@@ -40,9 +33,10 @@ class MiniPlayer extends React.Component{
     getSource(id){
         request.get('/song/url?id='+id)
             .then(res=>{
-                this.setState({
-                    currentUrl: `https://music.163.com/song/media/outer/url?id=${id}.mp3`
-                },()=>{console.log(this.state.currentUrl)})
+                return `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+                // this.setState({
+                //     currentUrl: `https://music.163.com/song/media/outer/url?id=${id}.mp3`
+                // },()=>{console.log(this.state.currentUrl)})
             })
             .catch(err=>{
                 alert(err)

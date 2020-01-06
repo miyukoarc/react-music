@@ -57,7 +57,7 @@ class phoneCaptcha extends React.Component{
                 <NavBar
                     mode="light"
                     icon={<Icon type="left" color={'#000'} />}
-                    onLeftClick={() => console.log(this.props)}
+                    onLeftClick={() => this.props.history.go(-1)}
                     leftContent={<span className={'font-size-14'} style={{color:'#000'}}>验证码</span>}
                 />
                 <List>

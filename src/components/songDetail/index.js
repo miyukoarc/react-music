@@ -75,7 +75,7 @@ class songDetail extends React.Component {
                 <NavBar
                     mode="light"
                     icon={<Icon type="left" />}
-                    onLeftClick={() => this.props.history.goBack()}
+                    onLeftClick={() => this.props.history.go(-1)}
                     rightContent={[
                         <Icon key="0" type="search" style={{ marginRight: '16px' }} />,
                         <Icon key="1" type="ellipsis" />,

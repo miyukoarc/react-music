@@ -348,9 +348,9 @@ class NewSongs extends React.Component{
         }
     }
 
-    componentWillMount() {
+    
+    componentDidMount (){
         this.getSongs()
-
     }
 
     getSongs (){
@@ -394,7 +394,7 @@ class NewAlbum extends React.Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getAlbums()
     }
 

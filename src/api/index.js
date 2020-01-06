@@ -8,7 +8,11 @@ class Request {
         return new Promise((resolve, reject) => {
             fetch(this._baseUrl + url,
                 {
-                    credentials: 'include'
+                    credentials: 'include',
+                    headers: {
+                        referer:'https://music.163.com',
+                        host: 'music.163.com'
+                    }
                 })
                 .then(res => res.json())
                 .then(data => resolve(data))

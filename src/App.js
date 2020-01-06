@@ -20,6 +20,7 @@ class App extends React.Component{
       keywords: '',
     }
   }
+
   onGetSongId (id){
     this.setState({
       songId: id,
@@ -27,6 +28,7 @@ class App extends React.Component{
       console.log(this.state.songId)
     })
   }
+
   onGetKeyWords (val){
     this.setState({
       keywords: val
@@ -41,17 +43,17 @@ class App extends React.Component{
         <div>
           <Router >
             <Switch>
-              <Route exact path="/mainPage" render={(props)=><MainPage {...props}/>}/>
-              <Route exact path="/welcome" render={(props)=><Welcome {...props}/>}/>
+              <Route exact path="/mainPage" component={(props)=><MainPage {...props}/>}/>
+              <Route exact path="/welcome" component={(props)=><Welcome {...props}/>}/>
               {/*<Route path="/home" component={()=>(<Home getKeywords={val=>{this.onGetKeyWords(val)}}/>)}/>} />*/}
-              <Route exact path="/home" render={(props)=><Home {...props} getKeywords={val=>this.onGetKeyWords(val)}/>} />
-              <Route exact path="/login" render={(props)=><Login {...props}/>}/>
+              <Route exact path="/home" component={(props)=><Home {...props} getKeywords={val=>this.onGetKeyWords(val)}/>} />
+              <Route exact path="/login" component={(props)=><Login {...props}/>}/>
               {/*<Route path="/search" render={<Search  getSongId={(id)=>this.onGetSongId(id)}/>} />*/}
               <Route exact path="/search" render={(props)=><Search {...props} keywords={this.state.keywords} getSongId={id=>this.onGetSongId(id)}/>}/>
-              <Route exact path="/signIn" render={(props)=><SignIn {...props} />}/>
-              <Route exact path="/signInPsw" render={(props)=><SignInByPsw {...props}/>}/>
-              <Route exact path="/phoneCaptcha" render={(props)=><PhoneCaptcha {...props}/>}/>
-              <Route exact path="/songDetail/:id" render={(props)=><SongDetail {...props}/>} />
+              <Route exact path="/signIn" component={(props)=><SignIn {...props} />}/>
+              <Route exact path="/signInPsw" component={(props)=><SignInByPsw {...props}/>}/>
+              <Route exact path="/phoneCaptcha" component={(props)=><PhoneCaptcha {...props}/>}/>
+              <Route exact path="/songDetail/:id" component={(props)=><SongDetail {...props}/>} />
               <Redirect to="/mainPage"/>
             </Switch>
           </Router>

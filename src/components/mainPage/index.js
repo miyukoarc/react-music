@@ -19,13 +19,14 @@ class MainPage extends React.Component{
         this.props.history.push('/welcome')
     }
 
-    componentWillMount() {
+    getDerivedStateFromProps(){
         console.log(this.props)
     }
 
-    componentDidMount() {
-        console.log(this.props)
+    getSnapshotBeforeUpdate (n,p){
+        console.log(n,p)
     }
+
 
     render (){
         return (
