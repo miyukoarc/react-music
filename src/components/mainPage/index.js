@@ -7,8 +7,18 @@ class MainPage extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            isAgree: false
+            isAgree: false,
+            routeKey: ''
         }
+    }
+
+
+    static getDerivedStateFromProps (nextProps,prevState){
+        console.log(nextProps, prevState)
+        if(nextProps.history.key!==prevState.routeKey){
+            return { routeKey: prevState.routeKey}
+        }
+        return null;
     }
 
     phoneLogin (){
@@ -19,16 +29,9 @@ class MainPage extends React.Component{
         this.props.history.push('/welcome')
     }
 
-    getDerivedStateFromProps(){
-        console.log(this.props)
-    }
-
-    getSnapshotBeforeUpdate (n,p){
-        console.log(n,p)
-    }
-
 
     render (){
+        const { match, location, history } = this.props
         return (
             <div className={'position-absolute'} style={{textAlign:'center',width:'100%',height: 'auto',bottom:'200px'}}>
                 <div className={'px-5 mx-5'}>
@@ -53,4 +56,4 @@ class MainPage extends React.Component{
     }
 }
 
-export default withRouter(MainPage)
+export default MainPage

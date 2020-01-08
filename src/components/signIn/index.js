@@ -20,21 +20,27 @@ if (isIPhone) {
 window.addEventListener = function(type, listener) {
 }
 
+
 class SignIn extends React.Component{
     constructor(props){
         super(props)
         this.state={
             hasError: false,
+            routeKey: ''
         }
-        // this.onKeyup = this.onKeyup.bind(this)
     }
     state = {
         type: 'money',
         isPhone: true
     }
 
-    componentWillMount() {
 
+    static getDerivedStateFromProps (nextProps,prevState){
+        if(nextProps){
+            console.log(nextProps, prevState)
+            return { routeKey: prevState.routeKey}
+        }
+        return null;
     }
 
 
@@ -61,26 +67,6 @@ class SignIn extends React.Component{
 
       handleApply = ()=>{
         this.checkHasSignUp()
-        // this.showToast()
-        //   this.props.asyncCount()
-          // this.props.startCount()
-          // let timer = setInterval(()=>{
-          //     this.props.counting()
-          //     if(this.props.count===0){
-          //         this.props.endCount()
-          //         // console.log(this.props.count,this.props.hasPost)
-          //         clearInterval(timer)
-          //     }
-          //
-          //
-          // },1000)
-        //   request.get('/captcha/sent?phone='+this.state.value.replace(/\s+/g,""))
-        //   .then(res=>{
-        //       console.log(res)
-        //   })
-        //   .catch(err=>{
-        //       alert(err)
-        //   })
       }
 
     showToast(){
@@ -116,6 +102,7 @@ class SignIn extends React.Component{
 
 
     render (){
+        const { match, location, history } = this.props
         const { getFieldProps } = this.props.form;
         const { postCaptcha } = this.props;
         let { type, isPhone } = this.state;
@@ -151,6 +138,7 @@ class SignIn extends React.Component{
                     ><span className={'font-size-14'}>+86</span>
                     </InputItem>
                     <div className={'px-5 mx-5 mt-5'}>
+                        <button onClick={()=>this.props.history.push({pathname:"/signIn"})}>返回</button>
                         <Button block shape={'round'} disabled={this.props.hasPost} onClick={this.handleApply}>下一步</Button>
                     </div>
                 </List>
@@ -192,4 +180,4 @@ const mapDispatchToProps = (dispatch)=>{
 
 let renderSignIn =  createForm()(SignIn)
 
-export default renderSignIn = withRouter(connect(mapStateToProps ,mapDispatchToProps)(renderSignIn))
+export default withRouter(connect(mapStateToProps ,mapDispatchToProps)(renderSignIn))

@@ -3,7 +3,6 @@ import {Icon, InputItem, List, NavBar, Toast} from "antd-mobile";
 import {Button} from "antd";
 import request from '../../api'
 import {connect} from "react-redux";
-import {withRouter} from "react-router";
 
 class SignByPsw extends React.Component {
     constructor(props){
@@ -66,14 +65,6 @@ class SignByPsw extends React.Component {
             })
     }
 
-    componentWillMount() {
-        console.log(this.props)
-    }
-
-    componentDidMount() {
-        console.log(this.props)
-    }
-
     render (){
         const {...getFieldProps} = this.props.form
         const fgPsw = (
@@ -127,4 +118,4 @@ const mapDispatchToProps = (dispatch)=>{
     }
 }
 
-export default SignByPsw = withRouter(connect(mapStateToProps,mapDispatchToProps)(SignByPsw))
+export default connect(mapStateToProps,mapDispatchToProps)(SignByPsw)

@@ -70,6 +70,7 @@ class songDetail extends React.Component {
 
 
     render (){
+        const { match, location, history } = this.props
         return (
             <div>
                 <NavBar
@@ -97,4 +98,4 @@ class AlbumImg extends React.Component {
     }
 }
 
-export default withRouter(songDetail)
+export default songDetail

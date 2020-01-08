@@ -13,7 +13,8 @@ class Home extends React.Component{
             open: false,
             banner: [],
             imgHeight: '176px',
-            songsLists: []
+            songsLists: [],
+            routeKey: ''
         }
 
     }
@@ -27,8 +28,15 @@ class Home extends React.Component{
     componentDidMount() {
         this.bannerInit()
         this.personalInit()
-        console.log(this.props.userInfo,this.props.loginState)
 
+    }
+
+    static getDerivedStateFromProps (nextProps,prevState){
+        console.log(nextProps, prevState)
+        if(nextProps.history.key!==prevState.routeKey){
+            return { routeKey: prevState.routeKey}
+        }
+        return null;
     }
 
     handleSearch (val){
@@ -120,6 +128,7 @@ class Home extends React.Component{
                 <div>
                     <span className={'font-size-12'} style={{color:'#000'}}>{this.props.userInfo.nickname}</span>
                 </div>
+                <button onClick={()=>this.props.history.push('/signIn')}>退出</button>
             </div>)
 
 
@@ -348,7 +357,7 @@ class NewSongs extends React.Component{
         }
     }
 
-    
+
     componentDidMount (){
         this.getSongs()
     }
@@ -442,4 +451,4 @@ function mapStateToProps (state){
 
 
 
-export default Home = withRouter(connect(mapStateToProps)(Home))
+export default connect(mapStateToProps)(Home)

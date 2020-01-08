@@ -50,6 +50,7 @@ class phoneCaptcha extends React.Component{
 
     }
     render (){
+        const { match, history, location } = this.props
         const { getFieldProps } = this.props.form;
         return (
 
@@ -84,4 +85,4 @@ class phoneCaptcha extends React.Component{
 
 const renderPhoneCapycha  = createForm()(phoneCaptcha)
 
-export default withRouter(renderPhoneCapycha)
+export default renderPhoneCapycha

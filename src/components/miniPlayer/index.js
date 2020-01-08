@@ -12,19 +12,12 @@ class MiniPlayer extends React.Component{
 
 
     static getDerivedStateFromProps (next,prev){
-        console.log(next, prev)
         if(next.songId){
             return {currentUrl:`https://music.163.com/song/media/outer/url?id=${next.songId}.mp3`}
         }else return null;
     }
 
 
-    // componentWillReceiveProps(nextProps, nextContext) {
-    //
-    //     if(nextProps.songId!==this.props.songId){
-    //         this.getSource(this.props.songId)
-    //     }
-    // }
 
 
 

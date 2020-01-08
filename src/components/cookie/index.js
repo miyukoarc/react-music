@@ -9,10 +9,10 @@ class Cookie extends Component {
     }
 
     submit = (e,data)=>{
-        cookie.save('userId', this.state.value)；
+        cookie.save('userId', this.state.value)
         ///删除cookie
         ///cookie.remove('userId');
-    };
+    }
 
     render() {
         return(

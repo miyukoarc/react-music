@@ -18,7 +18,7 @@ class Login extends React.Component {
                 }
             ],
             albumArr: [],
-            
+
         }
     }
 
@@ -42,7 +42,7 @@ class Login extends React.Component {
                     songList:this.state.songList.concat(data.result.songs)
                 })
             })
-            
+
             console.log(this.state.songList)
         })
         .catch(err => alert(err))
@@ -59,12 +59,12 @@ class Login extends React.Component {
         //     alert(err)
         // })
     }
-    
-     
+
+
 
     handleApply(){
         console.log(1)
-     }   
+     }
 
     render (){
         const { PayIncrease, PayDecrease, PayAny } = this.props
@@ -102,14 +102,14 @@ class Login extends React.Component {
                             </List.Item>
                         )}
                     />
-                    
+
 
             </div>
         )
     }
 }
 /**
- * 
+ *
  */
     //需要渲染什么数据
     function mapStateToProps(state) {
@@ -127,4 +127,4 @@ class Login extends React.Component {
     }
 
 
-export default Login = connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

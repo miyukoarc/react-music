@@ -49,10 +49,6 @@ class SearchModel extends React.Component {
 
     }
 
-    backPage (){
-        this.props.history.goBack()
-    }
-
 
     goDetail (id){
         this.props.getSongId(id)
@@ -71,6 +67,7 @@ class SearchModel extends React.Component {
     }
 
     render (){
+        const { location, history, match } = this.props
         return (
             <div>
 
@@ -104,5 +101,5 @@ class SearchModel extends React.Component {
     }
 }
 
-export default withRouter(SearchModel)
+export default SearchModel
 
